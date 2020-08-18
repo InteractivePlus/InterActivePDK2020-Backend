@@ -392,12 +392,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InteractivePlus/InteractivePDK2020-CoreLib.git",
-                "reference": "99ab14f6dab79c294fe678a63a939db91520a1cb"
+                "reference": "20a26335ac8696a11512e0d367efb14499a8ba07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InteractivePlus/InteractivePDK2020-CoreLib/zipball/99ab14f6dab79c294fe678a63a939db91520a1cb",
-                "reference": "99ab14f6dab79c294fe678a63a939db91520a1cb",
+                "url": "https://api.github.com/repos/InteractivePlus/InteractivePDK2020-CoreLib/zipball/20a26335ac8696a11512e0d367efb14499a8ba07",
+                "reference": "20a26335ac8696a11512e0d367efb14499a8ba07",
                 "shasum": ""
             },
             "require": {
@@ -422,7 +422,7 @@
                 "MIT"
             ],
             "description": "Core Support Library for InteractivePlus's New Identity Provider System",
-            "time": "2020-08-18T03:20:44+00:00"
+            "time": "2020-08-18T07:07:14+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",

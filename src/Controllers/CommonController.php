@@ -18,6 +18,7 @@ use Slim\Psr7\Response;
 
 class CommonController{
     public function getCaptcha(Request $request, Response $response) : Response{
+        $currentOperationActionID = 80001;
         $getParams = $request->getQueryParams();
         
         $REQ_ACTIONID = $getParams['actionID'];
@@ -29,6 +30,7 @@ class CommonController{
         $REQ_ACCESS_TOKEN = $getParams['access_token'];
         $REQ_WIDTH = $getParams['width'];
         $REQ_HEIGHT = $getParams['height'];
+
         if(empty($REQ_WIDTH)){
             $REQ_WIDTH = 150;
         }
@@ -80,13 +82,16 @@ class CommonController{
             }catch(PDKException $e){
                 //errCode must be 10001 => User non-existant
                 APPGlobal::getLogger()->addLogItem(
-                    0,
+                    $currentOperationActionID,
                     0,
                     LogLevel::WARNING,
                     false,
                     0,
                     $request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME),
-                    'User UID search failed after a valid token is verified'
+                    'User UID search failed after a valid token is verified',
+                    array(
+                        'BrowserUA' => $request->getHeader('User-Agent')
+                    )
                 );
                 return ResponseUtil::systemBusyResponse($response);
             }
@@ -104,13 +109,16 @@ class CommonController{
             }catch(PDKException $e){
                 //errCode must be 10001 => User non-existant
                 APPGlobal::getLogger()->addLogItem(
-                    0,
+                    $currentOperationActionID,
                     0,
                     LogLevel::WARNING,
                     false,
                     0,
                     $request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME),
-                    'User UID search failed after a valid OAuth access token is verified'
+                    'User UID search failed after a valid OAuth access token is verified',
+                    array(
+                        'BrowserUA' => $request->getHeader('User-Agent')
+                    )
                 );
                 return ResponseUtil::systemBusyResponse($response);
             }
@@ -143,6 +151,22 @@ class CommonController{
             )
         );
 
+        APPGlobal::getLogger()->addLogItem(
+            $currentOperationActionID,
+            $OAuthApp === NULL ? 0 : $OAuthApp->getAppUID(),
+            LogLevel::INFO,
+            true,
+            0,
+            $request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME),
+            'Captcha Allocated',
+            array(
+                'uid' => $User === NULL ? 0 : $User->getUID(),
+                'appuid' => $OAuthApp === NULL ? 0 : $OAuthApp->getAppUID(),
+                'captchaPhrase' => $generatedCaptcha->phrase,
+                'BrowserUA' => $request->getHeader('User-Agent')
+            )
+        );
+        
         $response->getBody()->write(json_encode($responseArr));
         return $response->withStatus(201);
     }

@@ -2,6 +2,8 @@
 use App\APPGlobal;
 use App\APPSettings;
 use App\Controllers\CommonController;
+use App\Controllers\UserController;
+use App\Middlewares\InternationalAPIMiddleware;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
@@ -25,7 +27,12 @@ $app->add(new \RKA\Middleware\IpAddress(
     APPSettings::PROXY_IP_HEADERS
 ));
 
+$IntlAPIMiddleware = new InternationalAPIMiddleware;
+
 //Register /Common/captcha request solver
-$app->get('/Common/captcha', CommonController::class . ':getCaptcha');
+$app->get('/common/captcha', CommonController::class . ':getCaptcha');
+
+//Register /interactiveLiveID/token request solver
+$app->get('/interactiveLiveID/token',UserController::class . ':getToken')->add($IntlAPIMiddleware);
 
 $app->run();

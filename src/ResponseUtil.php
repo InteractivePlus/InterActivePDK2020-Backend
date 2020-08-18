@@ -68,6 +68,25 @@ class ResponseUtil{
         $response->getBody()->write(json_encode($bodyArr));
         return $response->withStatus(403);
     }
+    public static function accountFrozenResponse(Response &$response) : Response{
+        $bodyArr = array(
+            'errCode' => 30002,
+            'errMessage' => 'Account Frozen'
+        );
+        $response->getBody()->write(json_encode($bodyArr));
+        return $response->withStatus(403);
+    }
+    public static function accountNotVerifiedResponse(string $contactType, Response &$response) : Response{
+        $bodyArr = array(
+            'errCode' => 30003,
+            'errMessage' => 'Account Not Verified',
+            'errContext' => array(
+                'contact' => $contactType
+            )
+        );
+        $response->getBody()->write(json_encode($bodyArr));
+        return $response->withStatus(403);
+    }
     public static function operationTooFrequentResponse(Response &$response) : Response{
         $bodyArr = array(
             'errCode' => 90001,
