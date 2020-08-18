@@ -17,7 +17,9 @@
         "php": ">=7.1.0",
         "slim/slim": "~4.5",
         "interactiveplus/interactivepdk-2020-corelib": "dev-master",
-        "slim/psr7": "^1.1"
+        "interactiveplus/interactivepdk-2020-captchasyscore": "dev-master",
+        "slim/psr7": "^1.1",
+        "akrabat/ip-address-middleware": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9"
