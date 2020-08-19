@@ -15,4 +15,9 @@ class APPSettings{
         'CF-Connecting-IP'
     );
     const CAPTCHA_DURATION = 60 * 3;
+    const SMTPHost = '';
+    const SMTPPort = 465;
+    const SMTPSecure = 'ssl';
+    const SMTPUsername = '';
+    const SMTPPassword = '';
 }

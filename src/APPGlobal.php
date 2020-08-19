@@ -1,6 +1,8 @@
 <?php
 namespace App;
 
+use InteractivePlus\PDK2020Core\Implementions\EmailServiceProviderWithSMTP;
+use InteractivePlus\PDK2020Core\Implementions\EmailVericodeSenderWithService;
 use InteractivePlus\PDK2020Core\Implementions\Storages\LogStorageMySQLImpl;
 use InteractivePlus\PDK2020Core\Interfaces\EmailVericodeSender;
 use InteractivePlus\PDK2020Core\Interfaces\SMSVericodeSender;
@@ -28,6 +30,15 @@ class APPGlobal{
             )
         );
         //TODO: Setup Email shooter and SMS shooter
+        self::$_emailVericodeShooter = new EmailVericodeSenderWithService(
+            new EmailServiceProviderWithSMTP(
+                APPSettings::SMTPHost,
+                APPSettings::SMTPUsername,
+                APPSettings::SMTPPassword,
+                APPSettings::SMTPPort,
+                APPSettings::SMTPSecure
+            )
+        );
     }
     public static function getDatabase() : MysqliDb{
         return self::$_dbConn;

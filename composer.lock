@@ -356,12 +356,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InteractivePlus/InterActivePDK2020-CaptchaSysCore.git",
-                "reference": "67fe22d99cbb75a866708ada8a8f43843614b8e9"
+                "reference": "b88e5e5fd3f27b7b389ac668305203e8c3e75216"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InteractivePlus/InterActivePDK2020-CaptchaSysCore/zipball/67fe22d99cbb75a866708ada8a8f43843614b8e9",
-                "reference": "67fe22d99cbb75a866708ada8a8f43843614b8e9",
+                "url": "https://api.github.com/repos/InteractivePlus/InterActivePDK2020-CaptchaSysCore/zipball/b88e5e5fd3f27b7b389ac668305203e8c3e75216",
+                "reference": "b88e5e5fd3f27b7b389ac668305203e8c3e75216",
                 "shasum": ""
             },
             "require": {
@@ -384,7 +384,7 @@
                 "MIT"
             ],
             "description": "Core Support Library for InteractivePlus's New Identity Provider System's Captcha generation, storage, and validation",
-            "time": "2020-08-18T03:21:00+00:00"
+            "time": "2020-08-19T12:32:51+00:00"
         },
         {
             "name": "interactiveplus/interactivepdk-2020-corelib",
@@ -392,12 +392,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InteractivePlus/InteractivePDK2020-CoreLib.git",
-                "reference": "20a26335ac8696a11512e0d367efb14499a8ba07"
+                "reference": "7cfb638b9b0a87c639ec5cfd05380446444652eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InteractivePlus/InteractivePDK2020-CoreLib/zipball/20a26335ac8696a11512e0d367efb14499a8ba07",
-                "reference": "20a26335ac8696a11512e0d367efb14499a8ba07",
+                "url": "https://api.github.com/repos/InteractivePlus/InteractivePDK2020-CoreLib/zipball/7cfb638b9b0a87c639ec5cfd05380446444652eb",
+                "reference": "7cfb638b9b0a87c639ec5cfd05380446444652eb",
                 "shasum": ""
             },
             "require": {
@@ -422,7 +422,7 @@
                 "MIT"
             ],
             "description": "Core Support Library for InteractivePlus's New Identity Provider System",
-            "time": "2020-08-18T07:07:14+00:00"
+            "time": "2020-08-19T13:40:10+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -1488,16 +1488,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.8.0",
+            "version": "v4.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "8c58eb4cd4f3883f82611abeac2efbc3dbed787e"
+                "reference": "aaee038b912e567780949787d5fe1977be11a778"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/8c58eb4cd4f3883f82611abeac2efbc3dbed787e",
-                "reference": "8c58eb4cd4f3883f82611abeac2efbc3dbed787e",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/aaee038b912e567780949787d5fe1977be11a778",
+                "reference": "aaee038b912e567780949787d5fe1977be11a778",
                 "shasum": ""
             },
             "require": {
@@ -1505,7 +1505,7 @@
                 "php": ">=7.0"
             },
             "require-dev": {
-                "ircmaxell/php-yacc": "^0.0.6",
+                "ircmaxell/php-yacc": "^0.0.7",
                 "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0"
             },
             "bin": [
@@ -1514,7 +1514,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.8-dev"
+                    "dev-master": "4.9-dev"
                 }
             },
             "autoload": {
@@ -1536,7 +1536,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2020-08-09T10:23:20+00:00"
+            "time": "2020-08-18T19:48:01+00:00"
         },
         {
             "name": "phar-io/manifest",
