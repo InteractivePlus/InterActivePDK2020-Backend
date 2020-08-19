@@ -12,6 +12,7 @@ use InteractivePlus\PDK2020Core\Logs\LogLevel;
 use InteractivePlus\PDK2020Core\User\Token;
 use InteractivePlus\PDK2020Core\User\User;
 use InteractivePlus\PDK2020Core\Utils\UserPhoneNumUtil;
+use InteractivePlus\PDK2020Core\VerificationCodes\VeriCode;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
@@ -159,5 +160,125 @@ class UserController{
         
         $response->getBody()->write(json_encode($returnArr));
         return $response->withStatus(201);
+    }
+    public function createUser(Request $request, Response $response) : Response{
+        $currentOperationActionID = 10002;
+
+        $getParams = $request->getQueryParams();
+        $postParams = $request->getParsedBody();//json_decode($request->getBody(),true);
+
+        $REQ_ACCOUNTTYPE = $postParams['accountType'];
+        $REQ_ACCOUNT = $postParams['account'];
+        $REQ_USERNAME = $postParams['username'];
+        $REQ_DISPLAYNAME = $postParams['displayName'];
+        $REQ_PASSWORD = $postParams['password'];
+        $REQ_CAPTCHAPHRASE = $postParams['captchaPhrase'];
+
+        $REQ_AREA = $getParams['area'];
+        $REQ_LOCALE = $getParams['locale'];
+
+        $email = NULL;
+        $phoneObj = NULL;
+        if($REQ_ACCOUNTTYPE === 1){
+            $email = $REQ_ACCOUNT;
+            if(!UserFormat::verifyEmail($email)){
+                return ResponseUtil::credentialNotFormattedReponse('account',$response);
+            }
+        }else if($REQ_ACCOUNTTYPE === 2){
+            try{
+                $phoneObj = UserPhoneNumUtil::parsePhone($REQ_ACCOUNT,$REQ_AREA);
+            }catch(PDKException $e){
+                return ResponseUtil::credentialNotFormattedReponse('account',$response);
+            }
+        }else{
+            return ResponseUtil::credentialNotFormattedReponse('accountType',$response);
+        }
+        if(!UserFormat::verifyUsername($REQ_USERNAME)){
+            return ResponseUtil::credentialNotFormattedReponse('username',$response);
+        }
+        if(!UserFormat::verifyDisplayName($REQ_DISPLAYNAME)){
+            return ResponseUtil::credentialNotFormattedReponse('displayName',$response);
+        }
+        if(!UserFormat::verifyPassword($REQ_PASSWORD)){
+            return ResponseUtil::credentialNotFormattedReponse('password',$response);
+        }
+        $CaptchaRepo = new CaptchaRepository(new CaptchaInfoStorageMySQLImpl(APPGlobal::getDatabase()));
+        if(!$CaptchaRepo->checkCaptchaPhrase($REQ_CAPTCHAPHRASE,$currentOperationActionID,$request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME))){
+            return ResponseUtil::credentialIncorrectResponse('captchaPhrase',$response);
+        }
+        //Finish validating, let's register!
+        try{
+            $RegisteredUser = User::createUser(
+                APPGlobal::getDatabase(),
+                $request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME),
+                $REQ_USERNAME,
+                $REQ_PASSWORD,
+                $REQ_DISPLAYNAME,
+                $email,
+                $phoneObj,
+                $REQ_LOCALE,
+                $REQ_AREA,
+                false
+            );
+        }catch(PDKException $e){
+            switch($e->getCode()){
+                case 10004:
+                    return ResponseUtil::itemAlreadyExistResponse('username',$response);
+                break;
+                case 10007:
+                    return ResponseUtil::itemAlreadyExistResponse('displayName',$response);
+                break;
+                case 10005:
+                    //Email already exist
+                    return ResponseUtil::itemAlreadyExistResponse('account',$response);
+                break;
+                case 10006:
+                    //Phone already exist
+                    return ResponseUtil::itemAlreadyExistResponse('account',$response);
+                break;
+            }
+        }
+        $RegisteredUser->saveToDatabase();
+        //user successfully registered, let's send out verification email / sms
+        $VeriCode = NULL;
+        if($email !== NULL){
+            $VeriCode = VeriCode::createNewCode(
+                APPGlobal::getDatabase(),
+                $RegisteredUser,
+                10001,
+                array(),
+                $request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME)
+            );
+            $sender = APPGlobal::getVericodeEmailSender();
+            $sender->sendVerificationCode($VeriCode,$REQ_LOCALE);
+        }else{
+            $VeriCode = VeriCode::createNewCode(
+                APPGlobal::getDatabase(),
+                $RegisteredUser,
+                10002,
+                array(),
+                $request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME)
+            );
+            $sender = APPGlobal::getVericodeSMSSender();
+            if($phoneObj === NULL){
+                APPGlobal::getLogger()->addLogItem(
+                    $currentOperationActionID,
+                    0,
+                    LogLevel::WARNING,
+                    true,
+                    0,
+                    $request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME),
+                    'Unexpected NULL phoneOBJ after registering and trying to send vericode'
+                );
+                return ResponseUtil::internalErrorResponse($response,new PDKException(51000,'Unexpected NULL phoneOBJ after registering and trying to send vericode'));
+            }
+            $sender->sendVerificationCode($VeriCode,$phoneObj,$REQ_DISPLAYNAME);
+        }
+        $returnArr = array(
+            'errCode' => 0,
+            'errMessage' => 'User successfully created'
+        );
+        $response->getBody()->write(json_encode($returnArr));
+        return $response->withStatus(401);
     }
 }
