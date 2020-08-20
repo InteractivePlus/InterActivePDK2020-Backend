@@ -137,7 +137,8 @@ class UserController{
                 'token' => $tokenObj->getTokenString(),
                 'refresh_token' => $tokenObj->getRefreshTokenString(),
                 'expires' => $tokenObj->expireTime,
-                'refresh_expires' => $tokenObj->refresh_expire_time
+                'refresh_expires' => $tokenObj->refresh_expire_time,
+                'uid' => $UserObj->getUID()
             )
         );
 
@@ -276,7 +277,8 @@ class UserController{
         }
         $returnArr = array(
             'errCode' => 0,
-            'errMessage' => 'User successfully created'
+            'errMessage' => 'User successfully created',
+            'uid' => $RegisteredUser->getUID()
         );
 
         $logContext = array(
@@ -295,7 +297,7 @@ class UserController{
             $currentOperationActionID,
             0,
             LogLevel::INFO,
-            false,
+            true,
             0,
             $request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME),
             'User Successfully Created',
@@ -304,5 +306,45 @@ class UserController{
 
         $response->getBody()->write(json_encode($returnArr));
         return $response->withStatus(401);
+    }
+    public function validateToken(Request $request, Response $response) : Response{
+        $currentOperationActionID = 10003;
+
+        $getParams = $request->getQueryParams();
+        $REQ_TOKEN = $getParams['token'];
+        
+        $TokenObj = NULL;
+        try{
+            $TokenObj = Token::fromTokenID(APPGlobal::getDatabase(),$REQ_TOKEN);
+        }catch(PDKException $e){
+            return ResponseUtil::credentialIncorrectResponse('token',$response);
+        }
+        $ctime = time();
+        if($TokenObj->expireTime <= $ctime){
+            return ResponseUtil::credentialExpiredReponse('token',$response);
+        }
+        $returnArr = array(
+            'errCode' => 0,
+            'errMessage' => 'Token is valid',
+            'expires' => $TokenObj->expireTime,
+            'uid' => $TokenObj->getUID()
+        );
+
+        APPGlobal::getLogger()->addLogItem(
+            $currentOperationActionID,
+            0,
+            LogLevel::INFO,
+            true,
+            0,
+            $request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME),
+            'Token validation successful',
+            array(
+                'tokenID' => $REQ_TOKEN,
+                'uid' => $TokenObj->getUID()
+            )
+        );
+
+        $response->getBody()->write(json_encode($returnArr));
+        return $response->withStatus(200);
     }
 }

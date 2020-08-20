@@ -34,6 +34,9 @@ $app->get('/common/captcha', CommonController::class . ':getCaptcha');
 
 //Register /interactiveLiveID/token request solver
 $app->get('/interactiveLiveID/token',UserController::class . ':getToken')->add($IntlAPIMiddleware);
+//Register /interactiveLiveID/user request solver
 $app->post('/interactiveLiveID/user', UserController::class . ':createUser')->add($IntlAPIMiddleware);
+//Register /interactiveLiveID/validationResult/token request solver
+$app->get('/interactiveLiveID/validationResult/token',UserController::class . ':validateToken');
 
 $app->run();
