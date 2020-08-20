@@ -5,7 +5,7 @@ use App\APPGlobal;
 use App\APPSettings;
 use App\ResponseUtil;
 use InteractivePlus\PDK2020CaptchaCore\CaptchaRepository;
-use InteractivePlus\PDK2020CaptchaCore\Implementions\Storage\CaptchaInfoStorageMySQLImpl;
+use InteractivePlus\PDK2020CaptchaCore\Implementions\Storages\CaptchaInfoStorageMySQLImpl;
 use InteractivePlus\PDK2020Core\Apps\AppEntity;
 use InteractivePlus\PDK2020Core\Exceptions\PDKException;
 use InteractivePlus\PDK2020Core\Formats\APPFormat;

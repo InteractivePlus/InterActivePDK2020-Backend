@@ -356,12 +356,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InteractivePlus/InterActivePDK2020-CaptchaSysCore.git",
-                "reference": "b88e5e5fd3f27b7b389ac668305203e8c3e75216"
+                "reference": "5081756ab57db49ad4c2f47d83d62a6c79e54c47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InteractivePlus/InterActivePDK2020-CaptchaSysCore/zipball/b88e5e5fd3f27b7b389ac668305203e8c3e75216",
-                "reference": "b88e5e5fd3f27b7b389ac668305203e8c3e75216",
+                "url": "https://api.github.com/repos/InteractivePlus/InterActivePDK2020-CaptchaSysCore/zipball/5081756ab57db49ad4c2f47d83d62a6c79e54c47",
+                "reference": "5081756ab57db49ad4c2f47d83d62a6c79e54c47",
                 "shasum": ""
             },
             "require": {
@@ -376,7 +376,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "InteracitvePlus\\PDK2020CaptchaCore\\": "src/"
+                    "InteractivePlus\\PDK2020CaptchaCore\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -384,7 +384,7 @@
                 "MIT"
             ],
             "description": "Core Support Library for InteractivePlus's New Identity Provider System's Captcha generation, storage, and validation",
-            "time": "2020-08-19T12:32:51+00:00"
+            "time": "2020-08-20T06:47:09+00:00"
         },
         {
             "name": "interactiveplus/interactivepdk-2020-corelib",
@@ -392,12 +392,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InteractivePlus/InteractivePDK2020-CoreLib.git",
-                "reference": "7cfb638b9b0a87c639ec5cfd05380446444652eb"
+                "reference": "413e966a31714ae8f36c4c3ab830e7bfa056aa8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InteractivePlus/InteractivePDK2020-CoreLib/zipball/7cfb638b9b0a87c639ec5cfd05380446444652eb",
-                "reference": "7cfb638b9b0a87c639ec5cfd05380446444652eb",
+                "url": "https://api.github.com/repos/InteractivePlus/InteractivePDK2020-CoreLib/zipball/413e966a31714ae8f36c4c3ab830e7bfa056aa8c",
+                "reference": "413e966a31714ae8f36c4c3ab830e7bfa056aa8c",
                 "shasum": ""
             },
             "require": {
@@ -414,7 +414,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "InteracitvePlus\\PDK2020Core\\": "src/"
+                    "InteractivePlus\\PDK2020Core\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -422,7 +422,7 @@
                 "MIT"
             ],
             "description": "Core Support Library for InteractivePlus's New Identity Provider System",
-            "time": "2020-08-19T13:40:10+00:00"
+            "time": "2020-08-20T06:28:03+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -1000,30 +1000,31 @@
         },
         {
             "name": "slim/psr7",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slimphp/Slim-Psr7.git",
-                "reference": "3c76899e707910779f13d7af95fde12310b0a5ae"
+                "reference": "832912cb3c2a807d472ef0ac392552e85703a667"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slimphp/Slim-Psr7/zipball/3c76899e707910779f13d7af95fde12310b0a5ae",
-                "reference": "3c76899e707910779f13d7af95fde12310b0a5ae",
+                "url": "https://api.github.com/repos/slimphp/Slim-Psr7/zipball/832912cb3c2a807d472ef0ac392552e85703a667",
+                "reference": "832912cb3c2a807d472ef0ac392552e85703a667",
                 "shasum": ""
             },
             "require": {
-                "fig/http-message-util": "^1.1.2",
+                "fig/http-message-util": "^1.1.4",
                 "php": "^7.2",
                 "psr/http-factory": "^1.0",
                 "psr/http-message": "^1.0",
                 "ralouphie/getallheaders": "^3"
             },
             "provide": {
+                "psr/http-factory-implementation": "1.0",
                 "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
-                "adriansuter/php-autoload-override": "^1.0",
+                "adriansuter/php-autoload-override": "^1.2",
                 "ext-json": "*",
                 "http-interop/http-factory-tests": "^0.6.0",
                 "php-http/psr7-integration-tests": "dev-master",
@@ -1070,7 +1071,7 @@
                 "psr-7",
                 "psr7"
             ],
-            "time": "2020-05-01T14:24:20+00:00"
+            "time": "2020-08-18T22:49:11+00:00"
         },
         {
             "name": "slim/slim",
