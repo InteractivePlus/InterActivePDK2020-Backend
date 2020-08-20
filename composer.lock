@@ -356,12 +356,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InteractivePlus/InterActivePDK2020-CaptchaSysCore.git",
-                "reference": "5081756ab57db49ad4c2f47d83d62a6c79e54c47"
+                "reference": "012d25859208bb0b02f4200549ebf6b021b6e7b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InteractivePlus/InterActivePDK2020-CaptchaSysCore/zipball/5081756ab57db49ad4c2f47d83d62a6c79e54c47",
-                "reference": "5081756ab57db49ad4c2f47d83d62a6c79e54c47",
+                "url": "https://api.github.com/repos/InteractivePlus/InterActivePDK2020-CaptchaSysCore/zipball/012d25859208bb0b02f4200549ebf6b021b6e7b8",
+                "reference": "012d25859208bb0b02f4200549ebf6b021b6e7b8",
                 "shasum": ""
             },
             "require": {
@@ -384,7 +384,7 @@
                 "MIT"
             ],
             "description": "Core Support Library for InteractivePlus's New Identity Provider System's Captcha generation, storage, and validation",
-            "time": "2020-08-20T06:47:09+00:00"
+            "time": "2020-08-20T07:05:54+00:00"
         },
         {
             "name": "interactiveplus/interactivepdk-2020-corelib",
@@ -392,12 +392,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InteractivePlus/InteractivePDK2020-CoreLib.git",
-                "reference": "413e966a31714ae8f36c4c3ab830e7bfa056aa8c"
+                "reference": "7d7f652bfe4dbd6804a57a4ca5feb3ae92e3e4b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InteractivePlus/InteractivePDK2020-CoreLib/zipball/413e966a31714ae8f36c4c3ab830e7bfa056aa8c",
-                "reference": "413e966a31714ae8f36c4c3ab830e7bfa056aa8c",
+                "url": "https://api.github.com/repos/InteractivePlus/InteractivePDK2020-CoreLib/zipball/7d7f652bfe4dbd6804a57a4ca5feb3ae92e3e4b1",
+                "reference": "7d7f652bfe4dbd6804a57a4ca5feb3ae92e3e4b1",
                 "shasum": ""
             },
             "require": {
@@ -422,7 +422,7 @@
                 "MIT"
             ],
             "description": "Core Support Library for InteractivePlus's New Identity Provider System",
-            "time": "2020-08-20T06:28:03+00:00"
+            "time": "2020-08-20T06:57:43+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",

@@ -130,6 +130,7 @@ class CommonController{
             $generatedCaptcha = $captchaRepo->generateAndSaveCaptcha(
                 APPSettings::CAPTCHA_DURATION,
                 $REQ_ACTIONID,
+                0,
                 $request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME),
                 5,
                 NULL,

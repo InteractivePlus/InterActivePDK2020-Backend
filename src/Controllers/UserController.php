@@ -96,7 +96,7 @@ class UserController{
         
         //check captcha match
         $captchaRepo = new CaptchaRepository(new CaptchaInfoStorageMySQLImpl(APPGlobal::getDatabase()));
-        if(!$captchaRepo->checkCaptchaPhrase($REQ_CAPTCHAPHRASE,$currentOperationActionID,$request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME))){
+        if(!$captchaRepo->checkCaptchaPhrase($REQ_CAPTCHAPHRASE,$currentOperationActionID,0,$request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME))){
             return ResponseUtil::credentialIncorrectResponse('captchaPhrase',$response);
         }
 
@@ -205,7 +205,7 @@ class UserController{
             return ResponseUtil::credentialNotFormattedReponse('password',$response);
         }
         $CaptchaRepo = new CaptchaRepository(new CaptchaInfoStorageMySQLImpl(APPGlobal::getDatabase()));
-        if(!$CaptchaRepo->checkCaptchaPhrase($REQ_CAPTCHAPHRASE,$currentOperationActionID,$request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME))){
+        if(!$CaptchaRepo->checkCaptchaPhrase($REQ_CAPTCHAPHRASE,$currentOperationActionID,0,$request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME))){
             return ResponseUtil::credentialIncorrectResponse('captchaPhrase',$response);
         }
         //Finish validating, let's register!
