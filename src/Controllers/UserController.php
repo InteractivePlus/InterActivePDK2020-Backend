@@ -276,6 +276,7 @@ class UserController{
             }
             $sender->sendVerificationCode($VeriCode,$phoneObj,$REQ_DISPLAYNAME);
         }
+        $VeriCode->saveToDatabase();
         $returnArr = array(
             'errCode' => 0,
             'errMessage' => 'User successfully created',
