@@ -70,3 +70,24 @@ CREATE TABLE IF NOT EXISTS `verification_codes`(
     UNIQUE INDEX veriCodeIndex (veri_code),
     INDEX uidIndex (uid)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `logs`(
+    `actionID` int,
+    `appuid` BIGINT UNSIGNED NOT NULL,
+    `time` INT,
+    `logLevel` INT,
+    `message` TEXT,
+    `success` TINYINT,
+    `PDKExceptionCode` INT,
+    `context` MEDIUMTEXT,
+    `clientAddr` VARCHAR(40)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `captchas`(
+    `phrase` VARCHAR(5),
+    `gen_time` INT,
+    `expire_time` INT,
+    `clientAddr` VARCHAR(40),
+    `actionID` INT,
+    `appuid` BIGINT UNSIGNED NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
