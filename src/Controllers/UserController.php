@@ -278,6 +278,30 @@ class UserController{
             'errCode' => 0,
             'errMessage' => 'User successfully created'
         );
+
+        $logContext = array(
+            'username' => $REQ_USERNAME,
+            'uid' => $RegisteredUser->getUID(),
+            'displayName' => $REQ_DISPLAYNAME,
+            'BrowserUA' => $request->getHeader('User-Agent')
+        );
+        if(!empty($email)){
+            $logContext['email'] = $email;
+        }else{
+            $logContext['phoneNum'] = $phoneObj;
+        }
+
+        APPGlobal::getLogger()->addLogItem(
+            $currentOperationActionID,
+            0,
+            LogLevel::INFO,
+            false,
+            0,
+            $request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME),
+            'User Successfully Created',
+            $logContext
+        );
+
         $response->getBody()->write(json_encode($returnArr));
         return $response->withStatus(401);
     }
