@@ -9,6 +9,7 @@ use InteractivePlus\PDK2020CaptchaCore\Implementions\Storage\CaptchaInfoStorageM
 use InteractivePlus\PDK2020Core\Exceptions\PDKException;
 use InteractivePlus\PDK2020Core\Formats\UserFormat;
 use InteractivePlus\PDK2020Core\Logs\LogLevel;
+use InteractivePlus\PDK2020Core\Settings\Setting;
 use InteractivePlus\PDK2020Core\User\Token;
 use InteractivePlus\PDK2020Core\User\User;
 use InteractivePlus\PDK2020Core\Utils\UserPhoneNumUtil;
@@ -346,5 +347,58 @@ class UserController{
 
         $response->getBody()->write(json_encode($returnArr));
         return $response->withStatus(200);
+    }
+    public function refreshToken(Request $request, Response $response) : Response{
+        $currentOperationActionID = 10004;
+
+        $getParams = $request->getQueryParams();
+        $postParams = $request->getParsedBody();//json_decode($request->getBody(),true);
+        $REQ_REFRESH_TOKEN = $postParams['refresh_token'];
+
+        $TokenObj = NULL;
+        try{
+            $TokenObj = Token::fromRefreshToken(APPGlobal::getDatabase(),$REQ_REFRESH_TOKEN);
+        }catch(PDKException $e){
+            return ResponseUtil::credentialIncorrectResponse('refresh_token',$response);
+        }
+
+        //check if refresh_token has expired
+        $ctime = time();
+        if($ctime >= $TokenObj->refresh_expire_time){
+            return ResponseUtil::credentialExpiredReponse('refresh_token',$response);
+        }
+
+        $TokenObj->renew(Setting::TOKEN_AVAILABLE_DURATION,Setting::REFRESH_TOKEN_AVAILABLE_DURATION);
+        $TokenObj->saveToDatabase();
+
+        $returnArr = array(
+            'errCode' => 0,
+            'errMessage' => 'Token successfully refreshed',
+            'newTokenInfo' => array(
+                'uid' => $TokenObj->getUID(),
+                'token' => $TokenObj->getTokenString(),
+                'refresh_token' => $TokenObj->getRefreshTokenString(),
+                'expires' => $TokenObj->expireTime,
+                'refresh_expires' => $TokenObj->refresh_expire_time
+            )
+        );
+
+        APPGlobal::getLogger()->addLogItem(
+            $currentOperationActionID,
+            0,
+            LogLevel::INFO,
+            true,
+            0,
+            $request->getAttribute(APPSettings::IP_ATTRIBUTE_NAME),
+            'Token refreshed',
+            array(
+                'usedRefreshToken' => $REQ_REFRESH_TOKEN,
+                'newTokenID' => $TokenObj->getTokenString(),
+                'newRefreshToken' => $TokenObj->getRefreshTokenString()
+            )
+        );
+
+        $response->getBody()->write(json_encode($returnArr));
+        return $response->withStatus(201);
     }
 }

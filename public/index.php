@@ -38,5 +38,7 @@ $app->get('/interactiveLiveID/token',UserController::class . ':getToken')->add($
 $app->post('/interactiveLiveID/user', UserController::class . ':createUser')->add($IntlAPIMiddleware);
 //Register /interactiveLiveID/validationResult/token request solver
 $app->get('/interactiveLiveID/validationResult/token',UserController::class . ':validateToken');
+//Register refresh token request solver
+$app->post('/interactiveLiveID/token',UserController::class . ':refreshToken');
 
 $app->run();
